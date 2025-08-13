@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS mpesa_transactions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  merchant_request_id VARCHAR(100) UNIQUE NOT NULL,
+  checkout_request_id VARCHAR(100) UNIQUE NOT NULL,
+  sale_id INT,
+  phone_number VARCHAR(20) NOT NULL,
+  amount DECIMAL(12, 2) NOT NULL,
+  account_reference VARCHAR(100),
+  transaction_desc VARCHAR(200),
+  transaction_id VARCHAR(100),
+  result_code INT,
+  result_desc TEXT,
+  status ENUM('pending', 'success', 'failed', 'cancelled') DEFAULT 'pending',
+  callback_received BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (sale_id) REFERENCES sales(id),
+  INDEX idx_merchant_request (merchant_request_id),
+  INDEX idx_checkout_request (checkout_request_id),
+  INDEX idx_phone (phone_number),
+  INDEX idx_status (status)
+);
