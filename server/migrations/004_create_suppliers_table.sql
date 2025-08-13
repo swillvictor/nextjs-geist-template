@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS suppliers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  supplier_code VARCHAR(50) UNIQUE NOT NULL,
+  name VARCHAR(200) NOT NULL,
+  contact_person VARCHAR(100),
+  email VARCHAR(100),
+  phone VARCHAR(20),
+  address TEXT,
+  city VARCHAR(100),
+  postal_code VARCHAR(20),
+  kra_pin VARCHAR(20),
+  payment_terms VARCHAR(100) DEFAULT 'Net 30',
+  credit_limit DECIMAL(12, 2) DEFAULT 0.00,
+  current_balance DECIMAL(12, 2) DEFAULT 0.00,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_supplier_code (supplier_code),
+  INDEX idx_name (name),
+  INDEX idx_active (is_active)
+);
